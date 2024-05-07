@@ -31,11 +31,12 @@ export default {
 			cardsArray: [],
 			isLoading: false,
 			store,
+			URL: "https://rickandmortyapi.com/api/character",
 		};
 	},
 	created() {
 		this.isLoading = true;
-		axios.get("https://rickandmortyapi.com/api/character").then((resp) => {
+		axios.get(this.URL).then((resp) => {
 			setTimeout(() => {
 				this.cardsArray = resp.data.results;
 				this.isLoading = false;
@@ -45,14 +46,17 @@ export default {
 	methods: {
 		callBackCambiaStatus() {
 			this.isLoading = true;
-			axios
-				.get(`https://rickandmortyapi.com/api/character?status=${store.selectedStatus}`)
-				.then((resp) => {
-					setTimeout(() => {
-						this.cardsArray = resp.data.results;
-						this.isLoading = false;
-					}, 500);
-				});
+			let changedURL = `https://rickandmortyapi.com/api/character?status=${store.selectedStatus}`;
+			if (this.store.selectedStatus === "all") {
+				changedURL = this.URL;
+			}
+			console.log(changedURL);
+			axios.get(changedURL).then((resp) => {
+				setTimeout(() => {
+					this.cardsArray = resp.data.results;
+					this.isLoading = false;
+				}, 500);
+			});
 		},
 	},
 };
