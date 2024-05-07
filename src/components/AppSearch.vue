@@ -6,15 +6,12 @@
 			class="form-select"
 		>
 			<option value="all">All</option>
-			<option value="alive">alive</option>
-			<option value="dead">dead</option>
-			<option value="unknown">unknown</option>
-			<!-- <option
+			<option
 				v-for="status in statuses"
 				:value="status"
 			>
 				{{ status }}
-			</option> -->
+			</option>
 		</select>
 	</div>
 </template>
