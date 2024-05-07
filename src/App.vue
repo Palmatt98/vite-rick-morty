@@ -3,7 +3,7 @@
 		<Loading v-if="isLoading === true" />
 		<div v-else>
 			<Header />
-			<AppSearch @cambioStato="callbackCambioStato" />
+			<AppSearch @cambiaStatus="callBackCambiaStatus" />
 			<CardList :cardsArray="cardsArray" />
 		</div>
 	</div>
@@ -16,8 +16,7 @@ import CardList from "./components/CardList.vue";
 import AppCard from "./components/AppCard.vue";
 import Loading from "./components/Loading.vue";
 import AppSearch from "./components/AppSearch.vue";
-import { store } from "./store"
-
+import { store } from "./store";
 
 export default {
 	components: {
@@ -26,12 +25,12 @@ export default {
 		AppCard,
 		Loading,
 		AppSearch,
-
 	},
 	data() {
 		return {
 			cardsArray: [],
 			isLoading: false,
+			store,
 		};
 	},
 	created() {
@@ -44,11 +43,18 @@ export default {
 		});
 	},
 	methods: {
-		// il parametro l'abbiamo prelevato dal componente AppSeaarch dal metodo onChangeStatus che emette l'evento e ci invia this.selectedStatus
-		callbackCambioStato(status) { 
-			console.log(status);
-		}
-	}
+		callBackCambiaStatus() {
+			this.isLoading = true;
+			axios
+				.get(`https://rickandmortyapi.com/api/character?status=${store.selectedStatus}`)
+				.then((resp) => {
+					setTimeout(() => {
+						this.cardsArray = resp.data.results;
+						this.isLoading = false;
+					}, 500);
+				});
+		},
+	},
 };
 </script>
 
