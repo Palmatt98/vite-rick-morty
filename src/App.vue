@@ -3,6 +3,7 @@
 		<Loading v-if="isLoading === true" />
 		<div v-else>
 			<Header />
+			<AppSearch @cambioStato="callbackCambioStato" />
 			<CardList :cardsArray="cardsArray" />
 		</div>
 	</div>
@@ -14,6 +15,9 @@ import Header from "./components/Header.vue";
 import CardList from "./components/CardList.vue";
 import AppCard from "./components/AppCard.vue";
 import Loading from "./components/Loading.vue";
+import AppSearch from "./components/AppSearch.vue";
+import { store } from "./store"
+
 
 export default {
 	components: {
@@ -21,6 +25,8 @@ export default {
 		CardList,
 		AppCard,
 		Loading,
+		AppSearch,
+
 	},
 	data() {
 		return {
@@ -34,9 +40,15 @@ export default {
 			setTimeout(() => {
 				this.cardsArray = resp.data.results;
 				this.isLoading = false;
-			}, 2000);
+			}, 500);
 		});
 	},
+	methods: {
+		// il parametro l'abbiamo prelevato dal componente AppSeaarch dal metodo onChangeStatus che emette l'evento e ci invia this.selectedStatus
+		callbackCambioStato(status) { 
+			console.log(status);
+		}
+	}
 };
 </script>
 

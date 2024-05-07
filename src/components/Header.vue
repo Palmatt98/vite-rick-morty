@@ -1,5 +1,7 @@
 <template>
-	<h1 class="text-center py-5">Rick and Morty App</h1>
+	<div>
+		<h1 class="text-center py-5">Rick and Morty App</h1>
+	</div>
 </template>
 
 <script>

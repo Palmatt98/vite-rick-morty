@@ -22,6 +22,7 @@ export default {
 		border-radius: 50%;
 		-webkit-box-shadow: 0px 0px 14px -4px #000000;
 		box-shadow: 0px 0px 14px -4px #000000;
+		cursor: pointer;
 	}
 }
 </style>
